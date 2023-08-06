@@ -37,7 +37,8 @@ export const useCreateNote = (pool: SimplePool,
         const pubs = pool.publish(RELAYS, event);
   
         let clearedInput = false;
-  
+
+        /* @ts-ignore */
         pubs.on("ok", () => {
           if (clearedInput) return;
   

@@ -18,7 +18,7 @@ export const NotesList = ({ notes, metadata }: NoteListProps) => {
           }}
           key={note.id}
           content={note.content}
-          hashtags={filterHashtags(note.tags)}
+          hashtags={filterHashtags(note.tags as unknown as string[])}
         />
       ))}
     </Stack>
