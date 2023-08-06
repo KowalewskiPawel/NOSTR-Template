@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { type EventTemplate, type Event, getEventHash, SimplePool } from "nostr-tools";
-import { RELAYS } from "../App";
+import { RELAYS } from "../consts";
 
 type NoteProps = {
   pool: SimplePool;
