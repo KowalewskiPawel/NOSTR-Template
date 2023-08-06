@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-
-type HashtagFilterProps = {
-  hashtags: string[];
-  onChange: (hashtags: string[]) => void;
-}
+import { HashtagFilterProps } from "../types";
 
 export const HashtagsFilter = ({ hashtags, onChange }: HashtagFilterProps) => {
-  const [input, setInput] = useState("");
+  const [hashtag, setHashtag] = useState("");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onChange([...hashtags, input.toLowerCase()]);
-    setInput("");
+  const addHashtag = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onChange([...hashtags, hashtag.toLowerCase()]);
+    setHashtag("");
   };
 
   const removeHashtag = (hashtag: string) => {
@@ -21,13 +17,13 @@ export const HashtagsFilter = ({ hashtags, onChange }: HashtagFilterProps) => {
   return (
     <div className="flex flex-col gap-12">
       <h3 className="text-h3 text-white">Filtering hashtags</h3>
-      <form onSubmit={onSubmit} className="flex gap-16">
+      <form onSubmit={addHashtag} className="flex gap-16">
         <input
           type="text"
           className="grow p-16 rounded"
           placeholder="Write a hashtag"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          value={hashtag}
+          onChange={(e) => setHashtag(e.target.value)}
         />
         <button
           className="bg-gray-500 px-16 py-4 rounded-8 font-bold hover:bg-gray-600 active:scale-90"

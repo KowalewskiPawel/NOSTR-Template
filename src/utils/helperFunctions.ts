@@ -1,4 +1,4 @@
-import type { Event } from "nostr-tools";
+import { type Event, nip19 } from "nostr-tools";
 
 export const insertEventIntoDescendingList = <T extends Event>(
   sortedArray: T[],
@@ -44,3 +44,9 @@ export const insertEventIntoDescendingList = <T extends Event>(
 
   return sortedArray;
 }
+
+export const formatDate = (created_at: number) => new Date(created_at * 1000).toISOString().split("T")[0];
+
+export const encodePubKey = (pubkey: string) => `${nip19.npubEncode(pubkey).slice(0, 12)}...`;
+
+export const filterHashtags = (tags: string[]) => tags.filter((tag: string) => tag[0] === "t").map((tag: string) => tag[1]);

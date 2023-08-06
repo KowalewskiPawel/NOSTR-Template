@@ -1,14 +1,6 @@
-type NoteCardProps = {
-    content: string;
-    user: {
-      name: string;
-      image: string;
-      pubkey: string;
-    };
-    created_at: number;
-    hashtags: string[];
-  }
-  
+import { NoteCardProps } from "../types";
+import { formatDate } from "../utils";
+
   export const NoteCard = ({
     content,
     user,
@@ -33,7 +25,7 @@ type NoteCardProps = {
               {user.name}
             </a>
             <p className="text-body5 text-gray-400">
-              {new Date(created_at * 1000).toISOString().split("T")[0]}
+              {formatDate(created_at)}
             </p>
           </div>
         </div>

@@ -1,11 +1,6 @@
-import { type Event, nip19 } from "nostr-tools";
-import { Metadata } from "../App";
+import { NoteListProps } from "../types";
+import { encodePubKey, filterHashtags } from "../utils";
 import { NoteCard } from "./NoteCard";
-
-type NoteListProps = {
-  notes: Event[];
-  metadata: Record<string, Metadata>;
-}
 
 export const NotesList = ({ notes, metadata }: NoteListProps) => {
   return (
@@ -16,7 +11,8 @@ export const NotesList = ({ notes, metadata }: NoteListProps) => {
           user={{
             name:
               metadata[note.pubkey]?.name ??
-              `${nip19.npubEncode(note.pubkey).slice(0, 12)}...`,
+              encodePubKey(note.pubkey)
+              ,
             image:
               metadata[note.pubkey]?.picture ??
               `https://api.dicebear.com/5.x/identicon/svg?seed=${note.pubkey}`,
@@ -24,7 +20,7 @@ export const NotesList = ({ notes, metadata }: NoteListProps) => {
           }}
           key={note.id}
           content={note.content}
-          hashtags={note.tags.filter((t) => t[0] === "t").map((t) => t[1])}
+          hashtags={filterHashtags(note.tags)}
         />
       ))}
     </div>
