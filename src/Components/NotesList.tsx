@@ -1,18 +1,16 @@
+import { Stack } from "@mui/material";
 import { NoteListProps } from "../types";
 import { encodePubKey, filterHashtags } from "../utils";
 import { NoteCard } from "./NoteCard";
 
 export const NotesList = ({ notes, metadata }: NoteListProps) => {
   return (
-    <div className="flex flex-col gap-16">
+    <Stack spacing={2}>
       {notes.map((note) => (
         <NoteCard
           created_at={note.created_at}
           user={{
-            name:
-              metadata[note.pubkey]?.name ??
-              encodePubKey(note.pubkey)
-              ,
+            name: metadata[note.pubkey]?.name ?? encodePubKey(note.pubkey),
             image:
               metadata[note.pubkey]?.picture ??
               `https://api.dicebear.com/5.x/identicon/svg?seed=${note.pubkey}`,
@@ -23,6 +21,6 @@ export const NotesList = ({ notes, metadata }: NoteListProps) => {
           hashtags={filterHashtags(note.tags)}
         />
       ))}
-    </div>
+    </Stack>
   );
-}
+};

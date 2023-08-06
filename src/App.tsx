@@ -17,7 +17,7 @@ export const App = () => {
         m: 'auto'
       }}
     >
-      <h1 className="text-h1">Nostr Feed</h1>
+      <h1>Nostr Feed</h1>
       <CreateNote pool={pool} hashtags={hashtags} />
       <HashtagsFilter hashtags={hashtags} onChange={setHashtags} />
       <NotesList metadata={metadata} notes={events} />
