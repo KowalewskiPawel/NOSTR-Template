@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import { Box, Button, Stack, TextField } from "@mui/material";
+import { useState } from "react";
 import { HashtagFilterProps } from "../types";
 
 export const HashtagsFilter = ({ hashtags, onChange }: HashtagFilterProps) => {
   const [hashtag, setHashtag] = useState("");
 
-  const addHashtag = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const addHashtag = () => {
+    if (hashtags.includes(hashtag)) {
+      setHashtag("");
+      return;
+    }
     onChange([...hashtags, hashtag.toLowerCase()]);
     setHashtag("");
   };
@@ -15,36 +19,38 @@ export const HashtagsFilter = ({ hashtags, onChange }: HashtagFilterProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-12">
-      <h3 className="text-h3 text-white">Filtering hashtags</h3>
-      <form onSubmit={addHashtag} className="flex gap-16">
-        <input
-          type="text"
-          className="grow p-16 rounded"
-          placeholder="Write a hashtag"
-          value={hashtag}
-          onChange={(e) => setHashtag(e.target.value)}
-        />
-        <button
-          className="bg-gray-500 px-16 py-4 rounded-8 font-bold hover:bg-gray-600 active:scale-90"
-          type="submit"
-        >
-          + Add
-        </button>
-      </form>
-      <ul className="flex flex-wrap gap-8">
-        {hashtags.map((hashtag) => (
-          <li
-            className="bg-gray-300 text-body5 text-gray-900 font-medium rounded-24 px-12 py-4"
-            key={hashtag}
-          >
+    <Stack>
+      <h3>Filter Content by Hashtags</h3>
+      <TextField
+        type="text"
+        placeholder="Write a hashtag"
+        value={hashtag}
+        onChange={(e) => setHashtag(e.target.value)}
+        variant="outlined"
+        size="small"
+      />
+      <Button sx={{ m: 2 }} variant="outlined" onClick={addHashtag}>
+        + Add
+      </Button>
+      <Stack
+        spacing={{ xs: 1, sm: 2 }}
+        direction="row"
+        useFlexGap
+        flexWrap="wrap"
+      >
+        {hashtags.map((hashtag, index) => (
+          <Box key={`${hashtag}-${index}`}>
             {hashtag}{" "}
-            <button className="ml-8" onClick={() => removeHashtag(hashtag)}>
+            <Button
+              sx={{ m: 2 }}
+              variant="outlined"
+              onClick={() => removeHashtag(hashtag)}
+            >
               X
-            </button>
-          </li>
+            </Button>
+          </Box>
         ))}
-      </ul>
-    </div>
+      </Stack>
+    </Stack>
   );
-}
+};

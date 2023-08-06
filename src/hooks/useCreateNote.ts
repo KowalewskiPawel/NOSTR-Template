@@ -6,8 +6,7 @@ export const useCreateNote = (pool: SimplePool,
     hashtags: string[]) => {
     const [noteContent, setNoteContent] = useState("");
 
-    const publishNote = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+    const publishNote = async () => {
   
       if (!window.nostr) {
         alert("Nostr extension not found");
@@ -50,5 +49,5 @@ export const useCreateNote = (pool: SimplePool,
       }
     };
 
-    return { noteContent,setNoteContent, publishNote };
+    return { noteContent, setNoteContent, publishNote };
 }
